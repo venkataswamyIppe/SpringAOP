@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+            "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean id="obj" class="com.spring.HelloImpl" />
+	<bean id="advice1" class="com.spring.MethodAdvice1" />
+	<bean id="advice2" class="com.spring.MethodAdvice2" />
+	<bean id="advice3" class="com.spring.MethodAdvice3" />
+	<bean id="aspect1"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice" ref="advice1" />
+		<property name="pattern" value=".*" />
+	</bean>
+	<bean id="aspect2"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice" ref="advice2" />
+		<property name="pattern" value=".*" />
+	</bean>
+	<bean id="aspect3"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice" ref="advice3" />
+		<property name="pattern" value=".*" />
+	</bean>
+	<bean id="adviceObj" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>com.spring.Hello</value>
+		</property>
+		<property name="target" ref="obj" />
+		<property name="interceptorNames">
+			<list>
+				<value>aspect1</value>
+				<value>aspect2</value>
+				<value>aspect3</value>
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,18 @@
+package com.spring.test;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.spring.model.Account;
+import com.spring.service.AccountService;
+import com.spring.service.AccountServiceImpl;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ApplicationContext ac=new ClassPathXmlApplicationContext("spring.xml");
+		AccountService	accountService= ac.getBean(AccountService.class);
+		accountService.updateAccountBalance(new Account("sbh1001","MoneyTransfer"),1500);
+	}
+
+}
